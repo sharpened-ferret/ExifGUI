@@ -115,11 +115,25 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _openFile,
-        tooltip: 'Open File',
-        child: const Icon(Icons.file_open),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            FloatingActionButton(
+              onPressed: _openFile,
+              tooltip: 'Open File',
+              child: const Icon(Icons.file_open),
+            ),
+            FloatingActionButton(
+              onPressed: _openFile,
+              tooltip: 'Save File',
+              child: const Icon(Icons.save),
+            ),
+          ],
+        ),
+      )
+
     );
   }
 }
