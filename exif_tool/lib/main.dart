@@ -69,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
         });
         await Process.run('exiftool', [_currFilePath]).then((result){
           setState(() {
+            _currFile = _currFile;
             _exifData = result.stdout;
             stdout.write('ExifData:\n$_exifData');
           });
@@ -114,12 +115,23 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'Current File:',
               style: TextStyle(fontWeight: FontWeight.bold),
+              
             ),
             Text(
               _currFilePath,
             ),
-            Expanded(child: Image(image: getImageFromFile(_currFile))),
-            Text(_exifData),
+            const Divider(),
+            Expanded(
+            child: GridView.count(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                crossAxisCount: 2,
+                crossAxisSpacing: 20,
+                children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [Flexible(child: Image(image: getImageFromFile(_currFile)))]),
+                  Text(_exifData),
+                ],
+            )),
           ],
         ),
       ),
