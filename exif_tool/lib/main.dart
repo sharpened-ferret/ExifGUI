@@ -53,6 +53,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String _currFilePath = "None";
   File? _currFile;
+  String _exifData = "None";
 
   void _openFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -64,7 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
           File file = File(temp);
           _currFilePath = file.path;
           _currFile = file;
-          debugPrint(_currFilePath);
+          debugPrint('Filepath: $_currFilePath');
+        });
+        await Process.run('exiftool', [_currFilePath]).then((result){
+          setState(() {
+            _exifData = result.stdout;
+            stdout.write('ExifData:\n$_exifData');
+          });
         });
       }
     }
@@ -112,6 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
               _currFilePath,
             ),
             Expanded(child: Image(image: getImageFromFile(_currFile))),
+            Text(_exifData),
           ],
         ),
       ),
