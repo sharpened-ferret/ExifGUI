@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _currFilePath = "None";
   File? _currFile;
   String _exifData = "";
-  Map<String, dynamic> _exifJson = Map();
+  Map<String, dynamic> _exifJson = {};
 
   void _openFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -133,7 +133,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [Flexible(child: Image(image: getImageFromFile(_currFile)))]),
                   //Text(_exifData),
-                  Text("File Type: ${_exifJson['FileType']}"),
+                  Text("File: ${_exifJson['FileName']}\n"
+                      "File Type: ${_exifJson['FileType']}\n"
+                      "File Size: ${_exifJson['FileSize']}\n"
+                      ""),
                 ],
             )),
           ],
