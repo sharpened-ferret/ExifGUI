@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'ExifTool Home Page'),
+      home: const MyHomePage(title: 'ExifGUI'),
     );
   }
 }
@@ -53,7 +53,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String _currFilePath = "None";
   File? _currFile;
-  String _exifData = "None";
+  String _exifData = "";
 
   void _openFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
           _currFile = file;
           debugPrint('Filepath: $_currFilePath');
         });
-        await Process.run('exiftool', [_currFilePath]).then((result){
+        await Process.run('exiftool', ['-j', _currFilePath]).then((result){
           setState(() {
             _currFile = _currFile;
             _exifData = result.stdout;
