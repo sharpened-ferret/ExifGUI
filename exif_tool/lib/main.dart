@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'utils.dart';
@@ -54,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _currFilePath = "None";
   File? _currFile;
   String _exifData = "";
+  Map<String, dynamic> _exifJson = Map();
 
   void _openFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -71,6 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
           setState(() {
             _currFile = _currFile;
             _exifData = result.stdout;
+            _exifData = _exifData.substring(1, _exifData.length - 3);
+            _exifJson = jsonDecode(_exifData);
             stdout.write('ExifData:\n$_exifData');
           });
         });
@@ -80,8 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
+    // This method is rerun every time setState is called
     //
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
@@ -129,7 +132,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisSpacing: 20,
                 children: [
                   Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [Flexible(child: Image(image: getImageFromFile(_currFile)))]),
-                  Text(_exifData),
+                  //Text(_exifData),
+                  Text("File Type: ${_exifJson['FileType']}"),
                 ],
             )),
           ],
