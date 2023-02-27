@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 
 import 'utils.dart';
+import 'edit_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.title}) : super(key: key);
@@ -125,9 +126,13 @@ class _HomePageState extends State<HomePage> {
                 child: const Icon(Icons.file_open),
               ),
               FloatingActionButton(
-                onPressed: _openFile,
-                tooltip: 'Save File',
-                child: const Icon(Icons.save),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return EditPage(title: 'Edit', file: _currFile, filePath: _currFilePath, exifJson: _exifJson);
+                  }));
+                },
+                tooltip: 'Edit',
+                child: const Icon(Icons.edit),
               ),
             ],
           ),

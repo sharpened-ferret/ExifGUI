@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'HomePage.dart';
+import 'home_page.dart';
 
 void main() {
   runApp(const MyApp());
