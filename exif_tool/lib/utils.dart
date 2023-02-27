@@ -9,3 +9,8 @@ ImageProvider getImageFromFile(File? f) {
     return MemoryImage(kTransparentImage);
   }
 }
+
+String generateExifDisplayString(Map jsonData) {
+  String returnText = "File: ${jsonData['FileName']}\nFile Type: ${jsonData['FileType']}\nFile Size: ${jsonData['FileSize']}\n";
+  return returnText;
+}

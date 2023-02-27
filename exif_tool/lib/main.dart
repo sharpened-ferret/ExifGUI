@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
+import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'utils.dart';
 
 void main() {
@@ -16,6 +18,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ExifTool',
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en'), // English
+      ],
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -132,11 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisSpacing: 20,
                 children: [
                   Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [Flexible(child: Image(image: getImageFromFile(_currFile)))]),
-                  //Text(_exifData),
-                  Text("File: ${_exifJson['FileName']}\n"
-                      "File Type: ${_exifJson['FileType']}\n"
-                      "File Size: ${_exifJson['FileSize']}\n"
-                      ""),
+                  Text(generateExifDisplayString(_exifJson)),
                 ],
             )),
           ],
