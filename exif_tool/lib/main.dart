@@ -141,8 +141,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisCount: 2,
                 crossAxisSpacing: 20,
                 children: [
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [Flexible(child: Image(image: getImageFromFile(_currFile)))]),
-                  Text(generateExifDisplayString(_exifJson)),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [Flexible(child: Image(image: getImageFromFile(_currFile)))]
+                  ),
+                  Text(generateExifDisplayString(_exifJson)), // Exif Data String
                 ],
             )),
           ],
