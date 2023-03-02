@@ -2,6 +2,8 @@ import 'package:exif_tool/utils.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+import 'edit_form.dart';
+
 class EditPage extends StatefulWidget {
     const EditPage({Key? key, required this.title, required this.file, required this.filePath, required this.exifJson}) : super(key: key);
 
@@ -44,7 +46,7 @@ class _EditPageState extends State<EditPage> {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [Flexible(child: Image(image: getImageFromFile(widget.file)))]
                                     ),
-                                    Text(generateExifDisplayString(widget.exifJson)),
+                                    const EditForm()
                                 ],
                             ),
                         )
