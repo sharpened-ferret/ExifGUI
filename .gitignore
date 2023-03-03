@@ -18,3 +18,5 @@ exif_tool/windows/flutter/generated_plugin_registrant.cc
 exif_tool/windows/flutter/generated_plugin_registrant.h
 
 exif_tool/windows/flutter/generated_plugins.cmake
+
+.idea/libraries/Dart_Packages.xml
