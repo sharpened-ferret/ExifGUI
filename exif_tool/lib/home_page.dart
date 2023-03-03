@@ -121,11 +121,13 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               FloatingActionButton(
+                heroTag: null,
                 onPressed: _openFile,
                 tooltip: 'Open File',
                 child: const Icon(Icons.file_open),
               ),
               FloatingActionButton(
+                heroTag: null,
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return EditPage(title: 'Edit', file: _currFile, filePath: _currFilePath, exifJson: _exifJson);
