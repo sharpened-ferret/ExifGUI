@@ -13,7 +13,13 @@ ImageProvider getImageFromFile(File? f) {
 String generateExifDisplayString(Map jsonData) {
   String returnText = "File: ${jsonData['FileName']}\nFile Type: ${jsonData['FileType']}\nFile Size: ${jsonData['FileSize']}\n";
 
-  final String fileType = jsonData['MIMEType'].split('/')[1];
+  String fileType;
+  try {
+    fileType = jsonData['MIMEType'].split('/')[1];
+  } catch (e) {
+    return "";
+  }
+
 
   switch (fileType) {
     case "png": {
@@ -24,9 +30,17 @@ Image Height: ${jsonData['ImageHeight']}
     break;
 
     case "jpeg": {
-      debugPrint("jpeg detected");
       returnText = """${returnText}Image Width: ${jsonData['ImageWidth']}
 Image Height: ${jsonData['ImageHeight']}
+""";
+    }
+    break;
+
+    case "mp4": {
+  returnText = """${returnText}Video Size: ${jsonData['VideoSize']}
+Media Create Date: ${jsonData['MediaCreateDate']}
+Media Modification Date: ${jsonData['MediaModifyDate']}
+Duration: ${jsonData['Duration']}
 """;
     }
     break;
