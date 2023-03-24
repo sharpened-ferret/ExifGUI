@@ -9,6 +9,11 @@ class EditForm extends StatefulWidget {
                         hintText: value.toString(),
                         labelText: key
                     ),
+                    onSaved: (val) {
+                        if (val != null && val != "") {
+                            saveForm(key, val);
+                        }
+                    },
                 )
             );
         });
@@ -16,6 +21,11 @@ class EditForm extends StatefulWidget {
 
     final Map exifJson;
     final List<Widget> formFields = <Widget>[];
+    Map formResults = {};
+
+    void saveForm(String key, String value) {
+        formResults[key] = value;
+    }
 
     @override
     EditFormState createState() {
@@ -30,7 +40,7 @@ class EditFormState extends State<EditForm> {
     Widget build(BuildContext context) {
         return Form(
             key: _formKey,
-            child: Column(
+            child: ListView(
                 children: <Widget>[
                     Column(children: widget.formFields,),
                     Padding(
@@ -38,9 +48,11 @@ class EditFormState extends State<EditForm> {
                         child: ElevatedButton(
                             onPressed: () {
                                 if (_formKey.currentState!.validate()) {
+                                    _formKey.currentState!.save();
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(content: Text("File Saved"))
                                     );
+                                    debugPrint(widget.formResults.toString());
                                 }
                             },
                             child: const Text("Submit"),
