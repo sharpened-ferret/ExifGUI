@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                 tooltip: 'Open File',
                 child: const Icon(Icons.file_open),
               ),
-              FloatingActionButton(
+              _currFile != null ? FloatingActionButton(
                 heroTag: null,
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                 },
                 tooltip: 'Edit',
                 child: const Icon(Icons.edit),
-              ),
+              ) : const Text(""),
             ],
           ),
         )
