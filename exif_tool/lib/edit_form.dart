@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
 
 class EditForm extends StatefulWidget {
-    const EditForm({super.key});
+    EditForm({Key? key, required this.exifJson}) : super(key: key) {
+        exifJson.forEach((key, value) {
+            formFields.add(
+                TextFormField(
+                    decoration: InputDecoration(
+                        hintText: value.toString(),
+                        labelText: key
+                    ),
+                )
+            );
+        });
+    }
+
+    final Map exifJson;
+    final List<Widget> formFields = <Widget>[];
 
     @override
     EditFormState createState() {
@@ -18,9 +32,7 @@ class EditFormState extends State<EditForm> {
             key: _formKey,
             child: Column(
                 children: <Widget>[
-                    TextFormField(
-
-                    ),
+                    Column(children: widget.formFields,),
                     Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: ElevatedButton(

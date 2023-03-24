@@ -46,7 +46,7 @@ class _EditPageState extends State<EditPage> {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [Flexible(child: Image(image: getImageFromFile(widget.file)))]
                                     ),
-                                    const EditForm()
+                                    EditForm(exifJson: widget.exifJson,)
                                 ],
                             ),
                         )
