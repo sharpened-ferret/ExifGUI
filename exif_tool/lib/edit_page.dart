@@ -1,8 +1,9 @@
-import 'package:exif_tool/utils.dart';
+import 'package:exif_tool/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'edit_form.dart';
+import 'map.dart';
 
 class EditPage extends StatefulWidget {
     const EditPage({Key? key, required this.title, required this.file, required this.filePath, required this.exifJson}) : super(key: key);
@@ -49,7 +50,17 @@ class _EditPageState extends State<EditPage> {
                                     EditForm(exifJson: widget.exifJson, filepath: widget.filePath)
                                 ],
                             ),
-                        )
+                        ),
+                        FloatingActionButton(
+                            heroTag: null,
+                            onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                    return const MapPage(title: 'Select Image Location');
+                                }));
+                            },
+                            tooltip: 'Map',
+                            child: const Icon(Icons.map),
+                        ),
                     ],
                 ),
             ),

@@ -3,6 +3,10 @@ import 'dart:io';
 
 class EditForm extends StatefulWidget {
     EditForm({Key? key, required this.exifJson, required this.filepath}) : super(key: key) {
+        if (exifJson['Location'] != null) {
+            debugPrint("ExifLocation: ${exifJson['location']}");
+        }
+
         exifJson.forEach((key, value) {
             formFields.add(
                 TextFormField(
