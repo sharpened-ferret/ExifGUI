@@ -109,11 +109,35 @@ class _MapPageState extends State<MapPage> {
 
               showDialog(
                 context: context,
-                builder: (context) => AlertDialog(
-                  content: Text(
-                      'Latitude: ${location.latitude}, Longitude: ${location.longitude}'),
+                builder: (context) => SimpleDialog(
+                  title: const Text("Select Location"),
+                  children: <Widget>[
+                    Text(
+                      "Latitude: ${location.latitude}, Longitude: ${location.longitude}",
+                      textAlign: TextAlign.center,
+                    ),
+                    SimpleDialogOption(
+                      child: ElevatedButton(
+                        onPressed: () { Navigator.pop(context, location.longitude); },
+                        child: const Text("Select"),
+                      ),
+                    ),
+                    SimpleDialogOption(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.red
+                        ),
+                        onPressed: () { Navigator.pop(context); },
+                        child: const Text("Cancel"),
+                      )
+                    )
+                  ],
                 ),
-              );
+              ).then((value) {
+                if (value != null) {
+                  Navigator.pop(context, value);
+                }
+              });
             },
             child: Listener(
               behavior: HitTestBehavior.opaque,
