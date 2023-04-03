@@ -69,8 +69,7 @@ class EditFormState extends State<EditForm> {
               child: ListView(
                 primary: true,
                 children: <Widget>[
-                  widget.exifJson['Location'] != null
-                      ? ElevatedButton(
+                  ElevatedButton(
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
@@ -88,8 +87,7 @@ class EditFormState extends State<EditForm> {
                           style: ElevatedButton.styleFrom(
                             primary: Theme.of(context).indicatorColor,
                           ),
-                          child: const Text("Set Image Location"))
-                      : const Text(""),
+                          child: const Text("Set Image Location")),
                   Column(
                     children: widget.formFields,
                   ),
