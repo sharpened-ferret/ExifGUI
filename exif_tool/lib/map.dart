@@ -118,7 +118,7 @@ class _MapPageState extends State<MapPage> {
                     ),
                     SimpleDialogOption(
                       child: ElevatedButton(
-                        onPressed: () { Navigator.pop(context, location.longitude); },
+                        onPressed: () { Navigator.pop(context, location); },
                         child: const Text("Select"),
                       ),
                     ),

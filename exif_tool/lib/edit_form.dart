@@ -59,20 +59,26 @@ class EditFormState extends State<EditForm> {
           thickness: 20.0,
           child: ScrollConfiguration(
               behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              ScrollConfiguration.of(context).copyWith(scrollbars: false),
               child: ListView(
                 primary: true,
                 children: <Widget>[
                   widget.exifJson['Location'] != null
                       ? ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
                               return const MapPage(
                                   title: 'Select Image Location');
-                            }));
-                          },
-                          child: const Text("Set Image Location"))
+                            })).then((value) {
+                          if (value != null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Location Set: ${value.latitude}, ${value.longitude}"))
+                            );
+                          }
+                        });
+                      },
+                      child: const Text("Set Image Location"))
                       : const Text(""),
                   Column(
                     children: widget.formFields,
