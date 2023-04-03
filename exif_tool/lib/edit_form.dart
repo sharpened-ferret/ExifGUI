@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:latlng/latlng.dart';
 import 'dart:io';
 import 'map.dart';
 
@@ -38,6 +39,7 @@ class EditForm extends StatefulWidget {
 
 class EditFormState extends State<EditForm> {
   final _formKey = GlobalKey<FormState>();
+  LatLng? location;
 
   void _saveFile() async {
     List<String> retArgs = <String>[];
@@ -45,6 +47,10 @@ class EditFormState extends State<EditForm> {
     widget.formResults.forEach((key, value) {
       retArgs.add("-$key='$value'");
     });
+    if (location != null) {
+      retArgs.add("-GPSLatitude=${location?.latitude}");
+      retArgs.add("-GPSLongitude=${location?.longitude}");
+    }
     debugPrint("running exiftool with args=$retArgs");
     await Process.run('exiftool', retArgs).then((result) {
       debugPrint(result.stdout);
@@ -72,6 +78,7 @@ class EditFormState extends State<EditForm> {
                                   title: 'Select Image Location');
                             })).then((value) {
                           if (value != null) {
+                            location = value;
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Location Set: ${value.latitude}, ${value.longitude}"))
                             );
