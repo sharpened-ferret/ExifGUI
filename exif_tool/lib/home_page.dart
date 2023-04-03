@@ -135,6 +135,10 @@ class _HomePageState extends State<HomePage> {
                                   child: SingleChildScrollView(
                                     primary: true,
                                     child: Column(children: [
+                                      _exifData != "" ? Text(
+                                        "File Properties:",
+                                        style: Theme.of(context).textTheme.headline5,
+                                      ) : const Text(""),
                                       Text(generateExifDisplayString(
                                           _exifJson)),
                                     ]),
