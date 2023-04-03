@@ -31,7 +31,6 @@ class _HomePageState extends State<HomePage> {
   String _exifData = "";
   Map<String, dynamic> _exifJson = {};
   ScrollController controller = ScrollController();
-  ScrollController controller2 = ScrollController();
 
   void _openFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -130,7 +129,6 @@ class _HomePageState extends State<HomePage> {
                               ]),
                           Scrollbar(
                               thickness: 20.0,
-                              interactive: true,
                               child: ScrollConfiguration(
                                   behavior: ScrollConfiguration.of(context)
                                       .copyWith(scrollbars: false),
