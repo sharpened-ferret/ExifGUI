@@ -30,6 +30,8 @@ class _HomePageState extends State<HomePage> {
   File? _currFile;
   String _exifData = "";
   Map<String, dynamic> _exifJson = {};
+  ScrollController controller = ScrollController();
+  ScrollController controller2 = ScrollController();
 
   void _openFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -43,7 +45,7 @@ class _HomePageState extends State<HomePage> {
           _currFile = file;
           debugPrint('Filepath: $_currFilePath');
         });
-        await Process.run('exiftool', ['-j', _currFilePath]).then((result){
+        await Process.run('exiftool', ['-j', _currFilePath]).then((result) {
           setState(() {
             _currFile = _currFile;
             _exifData = result.stdout;
@@ -88,30 +90,62 @@ class _HomePageState extends State<HomePage> {
             // axis because Columns are vertical (the cross axis would be
             // horizontal).
             mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+
             children: <Widget>[
               const Text(
                 'Current File:',
                 style: TextStyle(fontWeight: FontWeight.bold),
-
               ),
               Text(
                 _currFilePath,
               ),
               const Divider(),
               Expanded(
-                  child: GridView.count(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 20,
-                    children: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [Flexible(child: Image(image: getImageFromFile(_currFile)))]
+                child: Scrollbar(
+                    thickness: 8,
+                    controller: controller,
+                    child: ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: GridView.count(
+                        scrollDirection: Axis.vertical,
+                        controller: controller,
+                        padding: const EdgeInsets.all(10),
+                        primary: false,
+                        shrinkWrap: false,
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 20,
+                        children: [
+                          Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Expanded(
+                                  child: Image(
+                                    image: getImageFromFile(_currFile),
+                                    fit: BoxFit.fitHeight,
+                                  ),
+                                )
+                              ]),
+                          Scrollbar(
+                              thickness: 20.0,
+                              interactive: true,
+                              child: ScrollConfiguration(
+                                  behavior: ScrollConfiguration.of(context)
+                                      .copyWith(scrollbars: false),
+                                  child: SingleChildScrollView(
+                                    primary: true,
+                                    child: Column(children: [
+                                      Text(generateExifDisplayString(
+                                          _exifJson)),
+                                    ]),
+                                  )))
+                          // Exif Data String
+                        ],
                       ),
-                      Text(generateExifDisplayString(_exifJson)), // Exif Data String
-                    ],
-                  )),
+                    )),
+              ),
             ],
           ),
         ),
@@ -126,20 +160,25 @@ class _HomePageState extends State<HomePage> {
                 tooltip: 'Open File',
                 child: const Icon(Icons.file_open),
               ),
-              _currFile != null ? FloatingActionButton(
-                heroTag: null,
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return EditPage(title: 'Edit', file: _currFile, filePath: _currFilePath, exifJson: _exifJson);
-                  }));
-                },
-                tooltip: 'Edit',
-                child: const Icon(Icons.edit),
-              ) : const Text(""),
+              _currFile != null
+                  ? FloatingActionButton(
+                      heroTag: null,
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return EditPage(
+                              title: 'Edit',
+                              file: _currFile,
+                              filePath: _currFilePath,
+                              exifJson: _exifJson);
+                        }));
+                      },
+                      tooltip: 'Edit',
+                      child: const Icon(Icons.edit),
+                    )
+                  : const Text(""),
             ],
           ),
-        )
-
-    );
+        ));
   }
 }

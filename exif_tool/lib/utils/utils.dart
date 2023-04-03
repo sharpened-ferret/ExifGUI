@@ -22,28 +22,28 @@ String generateExifDisplayString(Map jsonData) {
 
 
   switch (fileType) {
-    case "png": {
-      returnText = """${returnText}Image Width: ${jsonData['ImageWidth']}
-Image Height: ${jsonData['ImageHeight']}
-""";
-    }
-    break;
-
-    case "jpeg": {
-      returnText = """${returnText}Image Width: ${jsonData['ImageWidth']}
-Image Height: ${jsonData['ImageHeight']}
-""";
-    }
-    break;
-
-    case "mp4": {
-  returnText = """${returnText}Video Size: ${jsonData['VideoSize']}
-Media Create Date: ${jsonData['MediaCreateDate']}
-Media Modification Date: ${jsonData['MediaModifyDate']}
-Duration: ${jsonData['Duration']}
-""";
-    }
-    break;
+//     case "png": {
+//       returnText = """${returnText}Image Width: ${jsonData['ImageWidth']}
+// Image Height: ${jsonData['ImageHeight']}
+// """;
+//     }
+//     break;
+//
+//     case "jpeg": {
+//       returnText = """${returnText}Image Width: ${jsonData['ImageWidth']}
+// Image Height: ${jsonData['ImageHeight']}
+// """;
+//     }
+//     break;
+//
+//     case "mp4": {
+//   returnText = """${returnText}Video Size: ${jsonData['VideoSize']}
+// Media Create Date: ${jsonData['MediaCreateDate']}
+// Media Modification Date: ${jsonData['MediaModifyDate']}
+// Duration: ${jsonData['Duration']}
+// """;
+//     }
+//     break;
 
     default: {
       returnText = "Unknown File Type Detected!\nUsing Default Handling\n";
