@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'edit_form.dart';
-import 'map.dart';
 
 class EditPage extends StatefulWidget {
   const EditPage(
@@ -70,16 +69,6 @@ class _EditPageState extends State<EditPage> {
                         ],
                       ),
                     ))),
-            FloatingActionButton(
-              heroTag: null,
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const MapPage(title: 'Select Image Location');
-                }));
-              },
-              tooltip: 'Map',
-              child: const Icon(Icons.map),
-            ),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'map.dart';
 
 class EditForm extends StatefulWidget {
   EditForm({Key? key, required this.exifJson, required this.filepath})
@@ -62,6 +63,17 @@ class EditFormState extends State<EditForm> {
               child: ListView(
                 primary: true,
                 children: <Widget>[
+                  widget.exifJson['Location'] != null
+                      ? ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const MapPage(
+                                  title: 'Select Image Location');
+                            }));
+                          },
+                          child: const Text("Set Image Location"))
+                      : const Text(""),
                   Column(
                     children: widget.formFields,
                   ),
@@ -77,7 +89,7 @@ class EditFormState extends State<EditForm> {
                           //debugPrint("exiftool filename $retArgs");
                         }
                       },
-                      child: const Text("Submit"),
+                      child: const Text("Save"),
                     ),
                   )
                 ],
