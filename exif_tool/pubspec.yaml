@@ -42,6 +42,7 @@ dependencies:
   intl: any
   map: ^1.4.1
   cached_network_image: ^3.2.1
+  latlng: ^0.2.1
 
 dev_dependencies:
   flutter_test:
