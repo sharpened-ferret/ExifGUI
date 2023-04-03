@@ -39,9 +39,10 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             _currFile = _currFile;
             _exifData = result.stdout;
-            _exifData = _exifData.substring(1, _exifData.length - 3);
-            _exifJson = jsonDecode(_exifData);
+            _exifData = _exifData;
             stdout.write('ExifData:\n$_exifData');
+            List jsonList = jsonDecode(_exifData);
+            _exifJson = jsonList[0];
           });
         });
       }
