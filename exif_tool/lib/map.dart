@@ -3,16 +3,15 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 
+import 'main.dart';
 import '/utils/utils.dart';
 import '/utils/tile_servers.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:map/map.dart';
 import 'package:latlng/latlng.dart';
-import 'package:geolocator/geolocator.dart';
 
 class MapPage extends StatefulWidget {
-
   const MapPage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -35,22 +34,6 @@ class _MapPageState extends State<MapPage> {
     location: const LatLng(51.620790309758355, -3.8802971905375068),
   );
 
-  Future<void> _gotoDefault() async {
-    // controller.center = const LatLng(51.620790309758355, -3.8802971905375068);
-    final hasPermission = await _handlePermission();
-
-    if (!hasPermission) {
-      controller.center = const LatLng(51.620790309758355, -3.8802971905375068);
-      setState(() {});
-      return;
-    }
-
-    final position = await Geolocator.getCurrentPosition();
-    controller.center = LatLng(position.latitude, position.longitude);
-    setState(() {});
-  }
-
-
   void _onDoubleTap(MapTransformer transformer, Offset position) {
     const delta = 0.5;
     final zoom = clamp(controller.zoom + delta, 2, 18);
@@ -61,6 +44,7 @@ class _MapPageState extends State<MapPage> {
 
   Offset? _dragStart;
   double _scaleStart = 1.0;
+
   void _onScaleStart(ScaleStartDetails details) {
     _dragStart = details.focalPoint;
     _scaleStart = 1.0;
@@ -92,6 +76,15 @@ class _MapPageState extends State<MapPage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        actions: [
+          IconButton(
+              onPressed: () {
+                MyApp.of(context).changeTheme();
+              },
+              icon: Icon(MyApp.of(context).getTheme()
+                  ? Icons.nightlight_round
+                  : Icons.sunny))
+        ],
       ),
       body: MapLayout(
         controller: controller,
@@ -118,19 +111,20 @@ class _MapPageState extends State<MapPage> {
                     ),
                     SimpleDialogOption(
                       child: ElevatedButton(
-                        onPressed: () { Navigator.pop(context, location); },
+                        onPressed: () {
+                          Navigator.pop(context, location);
+                        },
                         child: const Text("Select"),
                       ),
                     ),
                     SimpleDialogOption(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.red
-                        ),
-                        onPressed: () { Navigator.pop(context); },
-                        child: const Text("Cancel"),
-                      )
-                    )
+                        child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.red),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Cancel"),
+                    ))
                   ],
                 ),
               ).then((value) {
@@ -178,45 +172,6 @@ class _MapPageState extends State<MapPage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _gotoDefault,
-        tooltip: 'My Location',
-        child: const Icon(Icons.my_location),
-      ),
     );
-  }
-
-
-  Future<bool> _handlePermission() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
-      return false;
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        return false;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return false;
-    }
-    return true;
   }
 }

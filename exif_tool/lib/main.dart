@@ -6,8 +6,18 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+
+  static _MyAppState of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>()!;
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeMode _themeMode = ThemeMode.dark;
 
   // This widget is the root of your application.
   @override
@@ -32,17 +42,37 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
         brightness: Brightness.light,
       ),
       darkTheme: ThemeData(
-        primarySwatch: Colors.blue,
+        //primarySwatch: Colors.red,
+        indicatorColor: Colors.blue,
+        splashColor: Colors.redAccent,
+
         brightness: Brightness.dark,
       ),
-      themeMode: ThemeMode.dark,
+      themeMode: _themeMode,
       home: const HomePage(title: 'ExifGUI'),
     );
   }
+
+  void changeTheme() {
+    if (_themeMode == ThemeMode.light) {
+      setState(() {
+        _themeMode = ThemeMode.dark;
+      });
+    } else {
+      setState(() {
+        _themeMode = ThemeMode.light;
+      });
+    }
+  }
+
+  bool getTheme() {
+    if (_themeMode == ThemeMode.dark) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
-
-

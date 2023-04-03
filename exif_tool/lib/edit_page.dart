@@ -2,6 +2,7 @@ import 'package:exif_tool/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+import 'main.dart';
 import 'edit_form.dart';
 
 class EditPage extends StatefulWidget {
@@ -30,6 +31,15 @@ class _EditPageState extends State<EditPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          IconButton(
+              onPressed: () {
+                MyApp.of(context).changeTheme();
+              },
+              icon: Icon(MyApp.of(context).getTheme()
+                  ? Icons.nightlight_round
+                  : Icons.sunny))
+        ],
       ),
       body: Center(
         child: Column(

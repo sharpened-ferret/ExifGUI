@@ -1,3 +1,4 @@
+import 'package:exif_tool/main.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:io';
@@ -69,25 +70,20 @@ class _HomePageState extends State<HomePage> {
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  MyApp.of(context).changeTheme();
+                },
+                icon: Icon(MyApp.of(context).getTheme()
+                    ? Icons.nightlight_round
+                    : Icons.sunny))
+          ],
         ),
         body: Center(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
           child: Column(
-            // Column is also a layout widget. It takes a list of children and
-            // arranges them vertically. By default, it sizes itself to fit its
-            // children horizontally, and tries to be as tall as its parent.
-            //
-            // Invoke "debug painting" (press "p" in the console, choose the
-            // "Toggle Debug Paint" action from the Flutter Inspector in Android
-            // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-            // to see the wireframe for each widget.
-            //
-            // Column has various properties to control how it sizes itself and
-            // how it positions its children. Here we use mainAxisAlignment to
-            // center the children vertically; the main axis here is the vertical
-            // axis because Columns are vertical (the cross axis would be
-            // horizontal).
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
 
@@ -158,6 +154,7 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               FloatingActionButton(
                 heroTag: null,
+                backgroundColor: Theme.of(context).indicatorColor,
                 onPressed: _openFile,
                 tooltip: 'Open File',
                 child: const Icon(Icons.file_open),
@@ -165,6 +162,7 @@ class _HomePageState extends State<HomePage> {
               _currFile != null
                   ? FloatingActionButton(
                       heroTag: null,
+                      backgroundColor: Theme.of(context).indicatorColor,
                       onPressed: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {

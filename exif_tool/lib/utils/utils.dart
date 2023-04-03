@@ -11,7 +11,8 @@ ImageProvider getImageFromFile(File? f) {
 }
 
 String generateExifDisplayString(Map jsonData) {
-  String returnText = "File: ${jsonData['FileName']}\nFile Type: ${jsonData['FileType']}\nFile Size: ${jsonData['FileSize']}\n";
+  String returnText =
+      "File: ${jsonData['FileName']}\nFile Type: ${jsonData['FileType']}\nFile Size: ${jsonData['FileSize']}\n";
 
   String fileType;
   try {
@@ -19,7 +20,6 @@ String generateExifDisplayString(Map jsonData) {
   } catch (e) {
     return "";
   }
-
 
   switch (fileType) {
 //     case "png": {
@@ -45,13 +45,14 @@ String generateExifDisplayString(Map jsonData) {
 //     }
 //     break;
 
-    default: {
-      returnText = "Unknown File Type Detected!\nUsing Default Handling\n";
+    default:
+      {
+        returnText = "";
 
-      jsonData.forEach((key, value) {
-        returnText = "$returnText\n$key: $value";
-      });
-    }
+        jsonData.forEach((key, value) {
+          returnText = "$returnText\n$key: $value";
+        });
+      }
   }
   return returnText;
 }
