@@ -100,7 +100,6 @@ class EditFormState extends State<EditForm> {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text("File Saved")));
                           _saveFile();
-                          //debugPrint("exiftool filename $retArgs");
                         }
                       },
                       style: ElevatedButton.styleFrom(
