@@ -47,6 +47,16 @@ class EditFormState extends State<EditForm> {
     if (location != null) {
       retArgs.add("-GPSLatitude=${location?.latitude}");
       retArgs.add("-GPSLongitude=${location?.longitude}");
+      if (location!.latitude > 0) {
+        retArgs.add("-GPSLatitudeRef=N");
+      } else {
+        retArgs.add("-GPSLatitudeRef=S");
+      }
+      if (location!.longitude < 0) {
+        retArgs.add("-GPSLongitudeRef=W");
+      } else {
+        retArgs.add("-GPSLongitudeRef=E");
+      }
     }
     debugPrint("running exiftool with args=$retArgs");
     await Process.run('exiftool', retArgs).then((result) {
