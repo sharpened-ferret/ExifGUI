@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "uk.neilwoodhouse" "\0"
-            VALUE "FileDescription", "exif_tool" "\0"
+            VALUE "FileDescription", "Exif GUI" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "exif_tool" "\0"
+            VALUE "InternalName", "Exif GUI" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 uk.neilwoodhouse. All rights reserved." "\0"
             VALUE "OriginalFilename", "exif_tool.exe" "\0"
-            VALUE "ProductName", "exif_tool" "\0"
+            VALUE "ProductName", "Exif GUI" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
